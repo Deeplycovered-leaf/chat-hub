@@ -1,0 +1,7 @@
+import Router from '@koa/router'
+import { user_controller } from '../controller'
+import { hash_password, verify_user } from '../middleware'
+
+export const user_router = new Router({ prefix: '/user' })
+
+user_router.post('/signup', verify_user, hash_password, user_controller.create)

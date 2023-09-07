@@ -1,16 +1,9 @@
-const Koa = require('koa')
-const Router = require('@koa/router')
+import { app } from './app'
+import { SERVER_PORT } from './config'
 
-const app = new Koa()
+import './utils/handle-error'
 
-const userRouter = new Router({ prefix: '/user' })
-userRouter.get('/list', (ctx) => {
-  ctx.body = 'user'
-})
-app.use(userRouter.routes())
-app.use(userRouter.allowedMethods())
-
-app.listen(8000, () => {
+app.listen(SERVER_PORT, () => {
   // eslint-disable-next-line no-console
   console.log('server is running at http://localhost:8000')
 })
