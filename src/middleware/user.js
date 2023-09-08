@@ -1,17 +1,18 @@
 import { user_service } from '../service'
 import { md5 } from '../utils'
+import { NAME_OR_PASSWORD_IS_NULL, USER_EXIST } from '../config'
 
 export async function verify_user(ctx, next) {
   const { name, password } = ctx.request.body
 
   if (!name || !password) {
-    ctx.app.emit('error', 'name_or_password_is_null', ctx)
+    ctx.app.emit('error', NAME_OR_PASSWORD_IS_NULL, ctx)
     return
   }
 
-  const has_user = await user_service.find(name)
-  if (has_user) {
-    ctx.app.emit('error', 'user_exist', ctx)
+  const users = await user_service.find(name)
+  if (users.length) {
+    ctx.app.emit('error', USER_EXIST, ctx)
     return
   }
 
