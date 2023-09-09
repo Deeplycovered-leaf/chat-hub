@@ -1,6 +1,6 @@
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
-import { register_routes, sign_in_router, user_router } from '../router'
+import { register_routes } from '../router'
 
 export const app = new Koa()
 

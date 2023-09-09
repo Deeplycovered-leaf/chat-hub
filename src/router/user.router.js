@@ -4,4 +4,5 @@ import { hash_password, verify_user } from '../middleware'
 
 export const user_router = new Router({ prefix: '/user' })
 
+user_router.post('/', user_controller.query)
 user_router.post('/signup', verify_user, hash_password, user_controller.create)

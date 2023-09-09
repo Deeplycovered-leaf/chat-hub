@@ -8,4 +8,20 @@ export default new class UserController {
 
     ctx.body = { code: 0, data: res }
   }
+
+  async query(ctx) {
+    try {
+      const res = await user_service.select({
+        query_content: '*',
+        table_name: 'moment',
+        expression: '',
+        values: [],
+      })
+
+      ctx.body = { code: 0, data: res }
+    }
+    catch (error) {
+      console.error('error =>', error)
+    }
+  }
 }()

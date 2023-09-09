@@ -32,4 +32,12 @@ export default new class UserService {
 
     return res.rows
   }
+
+  async select({ query_content, table_name, expression, values }) {
+    const statement = `select ${query_content} from ${table_name} ${expression};`
+
+    const res = await connection.query(statement, [...values])
+
+    return res
+  }
 }()
