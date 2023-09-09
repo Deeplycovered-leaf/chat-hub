@@ -9,7 +9,7 @@ import crypto from 'node:crypto'
 export function md5(password) {
   const hash = crypto.createHash('md5')
 
-  hash.update(password).digest('hex')
+  const hash_password = hash.update(password).digest('hex')
 
-  return hash
+  return hash_password
 }

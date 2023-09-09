@@ -1,5 +1,5 @@
 import { app } from '../app'
-import { NAME_OR_PASSWORD_IS_NULL, PASSWORD_IS_INCORRECT, USER_EXIST, USER_IS_NOT_EXIST } from '../config/error'
+import { NAME_OR_PASSWORD_IS_NULL, PASSWORD_IS_INCORRECT, UNAUTHORIZED, USER_EXIST, USER_IS_NOT_EXIST } from '../config/error'
 
 app.on('error', (err, ctx) => {
   let code = 0
@@ -21,6 +21,10 @@ app.on('error', (err, ctx) => {
     case PASSWORD_IS_INCORRECT:
       code = -1004
       msg = '密码错误!!!'
+      break
+    case UNAUTHORIZED:
+      code = -1005
+      msg = '无效token,未授权!!!'
       break
     default:
       break

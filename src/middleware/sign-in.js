@@ -1,4 +1,5 @@
-import { NAME_OR_PASSWORD_IS_NULL, PASSWORD_IS_INCORRECT, USER_IS_NOT_EXIST } from '../config/error'
+import jwt from 'jsonwebtoken'
+import { NAME_OR_PASSWORD_IS_NULL, PASSWORD_IS_INCORRECT, PUBLIC_KEY, UNAUTHORIZED, USER_IS_NOT_EXIST } from '../config'
 import { user_service } from '../service'
 import { md5 } from '../utils'
 
@@ -19,4 +20,20 @@ export async function verify_sign(ctx, next) {
   ctx.user = user
 
   await next()
+}
+
+async function verify_auth(ctx, next) {
+  const authorization = ctx.headers.authorization
+  const token = authorization.replace('Bearer ', '')
+
+  try {
+    const res = jwt.verify(token, PUBLIC_KEY, { algorithms: ['RS256'] })
+
+    ctx.body = res
+
+    await next()
+  }
+  catch (error) {
+    ctx.app.emit('error', UNAUTHORIZED, ctx)
+  }
 }

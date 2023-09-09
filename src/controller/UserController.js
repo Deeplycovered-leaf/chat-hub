@@ -6,6 +6,6 @@ export default new class UserController {
 
     const res = await user_service.create(user)
 
-    ctx.body = { data: res }
+    ctx.body = { code: 0, data: res }
   }
 }()

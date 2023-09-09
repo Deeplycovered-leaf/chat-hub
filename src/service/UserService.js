@@ -1,4 +1,4 @@
-import connection from '../config/db'
+import connection from '../app/db'
 
 export default new class UserService {
   /**
@@ -15,6 +15,7 @@ export default new class UserService {
     const statement = 'INSERT INTO "user" (name, password) VALUES ($1,$2);'
 
     const { rows } = await connection.query(statement, [name, password])
+
     return rows
   }
 
@@ -25,10 +26,10 @@ export default new class UserService {
    * @return {any[]} 查找到的用户数组。
    */
   async find(name) {
-    const statement = 'select name from "user" where name = $1;'
+    const statement = 'select * from "user" where name = $1;'
 
-    const { rows } = await connection.query(statement, [name])
+    const res = await connection.query(statement, [name])
 
-    return rows
+    return res.rows
   }
 }()
