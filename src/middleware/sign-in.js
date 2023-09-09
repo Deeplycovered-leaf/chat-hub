@@ -22,18 +22,21 @@ export async function verify_sign(ctx, next) {
   await next()
 }
 
-async function verify_auth(ctx, next) {
+export async function verify_auth(ctx, next) {
   const authorization = ctx.headers.authorization
+  if (!authorization)
+    return ctx.app.emit('error', UNAUTHORIZED, ctx)
+
   const token = authorization.replace('Bearer ', '')
 
   try {
     const res = jwt.verify(token, PUBLIC_KEY, { algorithms: ['RS256'] })
 
-    ctx.body = res
+    ctx.user = res
 
     await next()
   }
   catch (error) {
-    ctx.app.emit('error', UNAUTHORIZED, ctx)
+    return ctx.app.emit('error', UNAUTHORIZED, ctx)
   }
 }
