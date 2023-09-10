@@ -2,9 +2,6 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-export * from './user.router'
-export * from './sign-in.router'
-
 export async function register_routes(app) {
   const __filename = fileURLToPath(import.meta.url)
   const __dirname = path.dirname(__filename)
