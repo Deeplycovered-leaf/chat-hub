@@ -1,5 +1,5 @@
 import { app } from '../app'
-import { NAME_OR_PASSWORD_IS_NULL, PASSWORD_IS_INCORRECT, UNAUTHORIZED, USER_EXIST, USER_IS_NOT_EXIST } from '../config/error'
+import { NAME_OR_PASSWORD_IS_NULL, OPERATION_IS_NOT_ALLOWED, PASSWORD_IS_INCORRECT, UNAUTHORIZED, USER_EXIST, USER_IS_NOT_EXIST } from '../config'
 
 app.on('error', (err, ctx) => {
   let code = 0
@@ -26,6 +26,11 @@ app.on('error', (err, ctx) => {
       code = -1005
       msg = '无效token,未授权!!!'
       break
+    case OPERATION_IS_NOT_ALLOWED:
+      code = -1006
+      msg = '操作不允许!!!'
+      break
+
     default:
       break
   }
