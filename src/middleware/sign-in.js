@@ -37,6 +37,7 @@ export async function verify_auth(ctx, next) {
     await next()
   }
   catch (error) {
+    console.error(error)
     return ctx.app.emit('error', UNAUTHORIZED, ctx)
   }
 }
