@@ -1,38 +1,30 @@
 import connection from '../app/db'
 
-export default new class MomentService {
-  async create({ id, content }) {
-    const statement = 'INSERT INTO moment (user_id, content) VALUES ($1,$2);'
+export default new class FileService {
+  async create({ id, filename, mimetype, size }) {
+    const statement = 'INSERT into avatar (user_id, filename,mimetype,size) VALUES ($1,$2,$3,$4);'
 
-    const { rows } = await connection.query(statement, [id, content])
+    const { rows } = await connection.query(statement, [id, filename, mimetype, size])
 
     return rows
   }
 
-  async query({ limit = 10, offset = 0 }) {
-    const statement = `SELECT
-      m.id AS id, m.content AS content, m.createAt AS createTime, m.updateAt AS updateTime,
-      jsonb_build_object('id', u.id, 'name', u.name, 'avatar_url', u.avatar_url, 'createTime', u.createAt, 'updateTime', u.updateAt) AS user,
-      (SELECT count(*) FROM comment c WHERE c.moment_id = m.id) AS comment_count,
-      (SELECT count(*) FROM moment_label ml WHERE ml.moment_id = m.id) AS label_count
-      FROM moment m
-      LEFT JOIN "user" u ON u.id = m.user_id
-      LIMIT $1 OFFSET $2;
-    `
+  async query_avatar_by_user_id({ user_id }) {
+    const statement = 'SELECT * FROM avatar where user_id = $1 ;'
 
-    const { rows } = await connection.query(statement, [limit, offset])
+    const { rows } = await connection.query(statement, [user_id])
 
-    return rows
+    return rows[rows.length - 1]
   }
 
   async query_by_id({ id }) {
     const statement = `SELECT
       m.id id, m.content content, m.createAt createTime, m.updateAt updateTime,
-      jsonb_build_object('id', u.id, 'name', u.name, 'avatar_url', u.avatar_url, 'createTime', u.createAt, 'updateTime', u.updateAt) AS user,
+      jsonb_build_object('id', u.id, 'name', u.name, 'createTime', u.createAt, 'updateTime', u.updateAt) AS user,
       (select 
         json_agg(
           jsonb_build_object('id', c.id, 'content', c.content, 'comment_id', c.comment_id,
-            'user', jsonb_build_object('id', c.user_id, 'name', uu.name, 'avatar_url', uu.avatar_url,) 
+            'user', jsonb_build_object('id', c.user_id, 'name', uu.name) 
           )
         ) 
         from comment c 

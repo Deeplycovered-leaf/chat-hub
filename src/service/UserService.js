@@ -33,6 +33,14 @@ export default new class UserService {
     return res.rows
   }
 
+  async update_avatar({ avatar_url, user_id }) {
+    const statement = 'update "user" set avatar_url = $1 where id = $2 returning avatar_url;'
+
+    const { rows } = await connection.query(statement, [avatar_url, user_id])
+
+    return rows
+  }
+
   async select({ command = 'select', query_content, table_name, expression, values }) {
     const statement = `${command} ${query_content} ${command === 'select' ? 'from' : ''} ${table_name} ${expression};`
 
