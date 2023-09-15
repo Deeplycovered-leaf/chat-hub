@@ -1,6 +1,6 @@
-import { label_service, moment_service } from '../service'
+import { label_service } from './label.service'
 
-export default new class LabelController {
+export const label_controller = new class LabelController {
   async create(ctx) {
     const { name } = ctx.request.body
 

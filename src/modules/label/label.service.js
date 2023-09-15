@@ -1,6 +1,6 @@
-import connection from '../app/db'
+import connection from '../../app/db'
 
-export default new class LabelService {
+export const label_service = new class LabelService {
   async create({ name }) {
     const statement = 'INSERT INTO label (name) VALUES ($1) RETURNING id;'
 

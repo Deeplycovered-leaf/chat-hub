@@ -1,8 +1,9 @@
 import fs from 'node:fs'
-import { file_service, user_service } from '../service'
-import { PATH } from '../config'
+import { PATH } from '../../config'
+import { file_service } from '../file'
+import { user_service } from './user.service'
 
-export default new class UserController {
+export const user_controller = new class UserController {
   async create(ctx) {
     const user = ctx.request.body
 

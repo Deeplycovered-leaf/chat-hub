@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import { NAME_OR_PASSWORD_IS_NULL, PASSWORD_IS_INCORRECT, PUBLIC_KEY, UNAUTHORIZED, USER_IS_NOT_EXIST } from '../config'
-import { user_service } from '../service'
+import { user_service } from '../modules'
 import { md5 } from '../utils'
 
 export async function verify_sign(ctx, next) {

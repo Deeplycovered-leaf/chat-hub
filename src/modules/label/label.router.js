@@ -1,6 +1,6 @@
 import Router from '@koa/router'
-import { verify_auth } from '../middleware'
-import { label_controller } from '../controller'
+import { verify_auth } from '../../middleware'
+import { label_controller } from './label.controller'
 
 export const label_router = new Router({ prefix: '/label' })
 

@@ -1,5 +1,5 @@
 import { OPERATION_IS_NOT_ALLOWED } from '../config'
-import { permission_service } from '../service'
+import { permission_service } from '../modules'
 
 export function verify_permission(module_name) {
   return async (ctx, next) => {

@@ -1,23 +1,31 @@
-import { moment_service } from '../service'
+import { SERVER_HOST, SERVER_PORT } from '../../config'
+import { user_service } from '../user'
+import { file_service } from './file.service'
 
-export default new class MomentController {
+export const file_controller = new class FileController {
   async create(ctx) {
-    const { content } = ctx.request.body
+    const file = ctx.request.file
     const { id } = ctx.user
 
-    const res = await moment_service.create({ id, content })
+    await file_service.create({ id, ...file })
+
+    const avatar_url = `${SERVER_HOST}:${SERVER_PORT}/user/avatar/${id}`
+    const res = await user_service.update_avatar({
+      avatar_url,
+      user_id: id,
+    })
 
     ctx.body = {
       code: 0,
       data: res,
-      message: '动态创建成功',
+      message: '头像上传成功',
     }
   }
 
   async query(ctx) {
     const { offset, limit } = ctx.query
 
-    const res = await moment_service.query({ offset, limit })
+    const res = await file_service.query({ offset, limit })
 
     ctx.body = {
       code: 0,
@@ -29,7 +37,7 @@ export default new class MomentController {
   async find_one(ctx) {
     const { id } = ctx.params
 
-    const res = await moment_service.query_by_id({ id })
+    const res = await file_service.query_by_id({ id })
 
     ctx.body = {
       code: 0,
@@ -42,7 +50,7 @@ export default new class MomentController {
     const { id } = ctx.params
     const { content } = ctx.request.body
 
-    const res = await moment_service.update({ id, content })
+    const res = await file_service.update({ id, content })
 
     ctx.body = {
       code: 0,
@@ -54,7 +62,7 @@ export default new class MomentController {
   async delete(ctx) {
     const { id } = ctx.params
 
-    const res = await moment_service.delete({ id })
+    const res = await file_service.delete({ id })
 
     ctx.body = {
       code: 0,
@@ -71,9 +79,9 @@ export default new class MomentController {
     for (const label of labels) {
       const { id: label_id } = await label
 
-      const has_label = await moment_service.has_label({ label_id, moment_id })
+      const has_label = await file_service.has_label({ label_id, moment_id })
       if (!has_label)
-        res = await moment_service.add_labels({ label_id, moment_id })
+        res = await file_service.add_labels({ label_id, moment_id })
     }
 
     ctx.body = {

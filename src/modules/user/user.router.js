@@ -1,6 +1,6 @@
 import Router from '@koa/router'
-import { user_controller } from '../controller'
-import { hash_password, verify_user } from '../middleware'
+import { hash_password, verify_user } from '../../middleware'
+import { user_controller } from './user.controller'
 
 export const user_router = new Router({ prefix: '/user' })
 

@@ -1,4 +1,4 @@
-import { label_service } from '../service'
+import { label_service } from '../modules'
 
 export async function verify_label_exists(ctx, next) {
   const { labels } = ctx.request.body

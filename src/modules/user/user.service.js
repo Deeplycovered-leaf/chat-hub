@@ -1,6 +1,6 @@
-import connection from '../app/db'
+import connection from '../../app/db'
 
-export default new class UserService {
+export const user_service = new class UserService {
   /**
    * 创建用户。
    *

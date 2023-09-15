@@ -1,6 +1,6 @@
 import Router from '@koa/router'
-import { verify_auth, verify_label_exists, verify_permission } from '../middleware'
-import { moment_controller } from '../controller'
+import { verify_auth, verify_label_exists, verify_permission } from '../../middleware'
+import { moment_controller } from './moment.controller'
 
 export const moment_router = new Router({ prefix: '/moment' })
 

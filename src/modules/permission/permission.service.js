@@ -1,6 +1,6 @@
-import connection from '../app/db'
+import connection from '../../app/db'
 
-export default new class PermissionService {
+export const permission_service = new class PermissionService {
   async check({ module_name, module_id, user_id }) {
     const statement = `select * from ${module_name} where id = $1 and user_id = $2;`
 

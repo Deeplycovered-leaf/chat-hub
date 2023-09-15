@@ -1,6 +1,6 @@
 import Router from '@koa/router'
-import { verify_auth, verify_permission } from '../middleware'
-import { comment_controller } from '../controller'
+import { verify_auth, verify_permission } from '../../middleware'
+import { comment_controller } from './comment.controller'
 
 export const comment_router = new Router({ prefix: '/comment' })
 

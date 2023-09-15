@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
-import { PRIVATE_KEY, PUBLIC_KEY, UNAUTHORIZED } from '../config'
+import { PRIVATE_KEY } from '../../config'
 
-export default new class SignInController {
+export const sign_in_controller = new class SignInController {
   sign_in(ctx) {
     const { id, name } = ctx.user
 

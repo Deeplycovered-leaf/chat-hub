@@ -1,6 +1,6 @@
-import { comment_service } from '../service'
+import { comment_service } from './comment.service'
 
-export default new class CommentController {
+export const comment_controller = new class CommentController {
   async create(ctx) {
     const { content, moment_id } = ctx.request.body
     const { id } = ctx.user

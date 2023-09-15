@@ -1,4 +1,4 @@
-import { user_service } from '../service'
+import { user_service } from '../modules'
 import { md5 } from '../utils'
 import { NAME_OR_PASSWORD_IS_NULL, USER_EXIST } from '../config'
 

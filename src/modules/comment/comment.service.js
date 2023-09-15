@@ -1,6 +1,6 @@
-import connection from '../app/db'
+import connection from '../../app/db'
 
-export default new class CommentService {
+export const comment_service = new class CommentService {
   async create({ id, content, moment_id }) {
     const statement = 'INSERT INTO comment (user_id, content, moment_id) VALUES ($1, $2, $3);'
 
